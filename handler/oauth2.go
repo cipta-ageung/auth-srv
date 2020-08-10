@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cipta-ageung/auth-srv/db"
+	oauth2 "github.com/cipta-ageung/auth-srv/proto/oauth2"
 	"github.com/micro/go-micro/errors"
-	"github.com/microhq/auth-srv/db"
-	oauth2 "github.com/microhq/auth-srv/proto/oauth2"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
 )

@@ -3,13 +3,13 @@ package main
 import (
 	"log"
 
-	"github.com/micro/cli/v2"
-	"github.com/micro/go-micro/v2"
 	"github.com/cipta-ageung/auth-srv/db"
 	"github.com/cipta-ageung/auth-srv/db/mysql"
 	"github.com/cipta-ageung/auth-srv/handler"
 	account "github.com/cipta-ageung/auth-srv/proto/account"
 	oauth2 "github.com/cipta-ageung/auth-srv/proto/oauth2"
+	"github.com/micro/cli/v2"
+	"github.com/micro/go-micro/v2"
 )
 
 func main() {

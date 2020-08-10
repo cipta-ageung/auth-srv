@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cipta-ageung/auth-srv/db"
+	account "github.com/cipta-ageung/auth-srv/proto/account"
+	oauth2 "github.com/cipta-ageung/auth-srv/proto/oauth2"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/microhq/auth-srv/db"
-	account "github.com/microhq/auth-srv/proto/account"
-	oauth2 "github.com/microhq/auth-srv/proto/oauth2"
 )
 
 var (
