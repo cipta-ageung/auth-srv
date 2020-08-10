@@ -13,13 +13,16 @@ import (
 )
 
 var (
+	// DefaultScope micro
 	DefaultScope = "micro"
 )
 
+// Oauth2 struct
 type Oauth2 struct{}
 
-func authClient(clientId, clientSecret string) error {
-	acc, err := db.Search(clientId, "", 1, 0)
+// authClient function handler
+func authClient(clientID, clientSecret string) error {
+	acc, err := db.Search(clientID, "", 1, 0)
 	if err != nil {
 		return errors.InternalServerError("go.micro.srv.auth", "server_error")
 	}
@@ -47,6 +50,7 @@ func authClient(clientId, clientSecret string) error {
 	return nil
 }
 
+// Authorize function handler
 func (o *Oauth2) Authorize(ctx context.Context, req *oauth2.AuthorizeRequest, rsp *oauth2.AuthorizeResponse) error {
 	// We may actually need to authenticate who can make this request.
 	// How should we do that?
@@ -95,6 +99,7 @@ func (o *Oauth2) Authorize(ctx context.Context, req *oauth2.AuthorizeRequest, rs
 	return nil
 }
 
+// Token function handler
 func (o *Oauth2) Token(ctx context.Context, req *oauth2.TokenRequest, rsp *oauth2.TokenResponse) error {
 	// We may actually need to authenticate who can make this request.
 	// How should we do that?
@@ -114,9 +119,9 @@ func (o *Oauth2) Token(ctx context.Context, req *oauth2.TokenRequest, rsp *oauth
 		if err != nil {
 			if err == db.ErrNotFound {
 				return errors.BadRequest("go.micro.srv.auth", "invalid_request")
-			} else {
-				return errors.InternalServerError("go.micro.srv.auth", "server_error")
 			}
+
+			return errors.InternalServerError("go.micro.srv.auth", "server_error")
 		}
 		// we have a request, is it the same client_id?
 		if req.ClientId != storedReq.ClientId {
@@ -196,7 +201,7 @@ func (o *Oauth2) Token(ctx context.Context, req *oauth2.TokenRequest, rsp *oauth
 		}
 
 		// get existing token
-		token, clientId, err := db.ReadRefresh(req.RefreshToken)
+		token, clientID, err := db.ReadRefresh(req.RefreshToken)
 		if err != nil {
 			if err == db.ErrNotFound {
 				return errors.BadRequest("go.micro.srv.auth", "invalid_request")
@@ -205,7 +210,7 @@ func (o *Oauth2) Token(ctx context.Context, req *oauth2.TokenRequest, rsp *oauth
 		}
 
 		// client id does not match for refresh token
-		if clientId != req.ClientId {
+		if clientID != req.ClientId {
 			return errors.BadRequest("go.micro.srv.auth", "access_denied")
 		}
 
@@ -235,6 +240,7 @@ func (o *Oauth2) Token(ctx context.Context, req *oauth2.TokenRequest, rsp *oauth
 	return nil
 }
 
+// Revoke Function
 func (o *Oauth2) Revoke(ctx context.Context, req *oauth2.RevokeRequest, rsp *oauth2.RevokeResponse) error {
 	// Who should be allowed to do this?
 
@@ -265,6 +271,7 @@ func (o *Oauth2) Revoke(ctx context.Context, req *oauth2.RevokeRequest, rsp *oau
 	return nil
 }
 
+// Introspect function
 func (o *Oauth2) Introspect(ctx context.Context, req *oauth2.IntrospectRequest, rsp *oauth2.IntrospectResponse) error {
 	// Who should be allowed to do this?
 

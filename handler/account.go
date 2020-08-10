@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"strings"
 
-	"github.com/micro/go-micro/errors"
 	"github.com/cipta-ageung/auth-srv/db"
+	"github.com/micro/go-micro/errors"
 	"github.com/pborman/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
@@ -17,6 +17,7 @@ const (
 	x = "_micro_auth_"
 )
 
+// Account Struct Handler
 type Account struct{}
 
 func validateAccount(acc *account.Record, method string) error {
@@ -43,6 +44,7 @@ func validateAccount(acc *account.Record, method string) error {
 	return nil
 }
 
+// Create function handler
 func (s *Account) Create(ctx context.Context, req *account.CreateRequest, rsp *account.CreateResponse) error {
 	// validate incoming
 	if err := validateAccount(req.Account, "Create"); err != nil {
@@ -72,6 +74,7 @@ func (s *Account) Create(ctx context.Context, req *account.CreateRequest, rsp *a
 	return nil
 }
 
+// Read function handler
 func (s *Account) Read(ctx context.Context, req *account.ReadRequest, rsp *account.ReadResponse) error {
 	if len(req.Id) == 0 {
 		return errors.BadRequest("go.micro.srv.auth.Read", "id cannot be blank")
@@ -86,6 +89,7 @@ func (s *Account) Read(ctx context.Context, req *account.ReadRequest, rsp *accou
 	return nil
 }
 
+// Update function handler
 func (s *Account) Update(ctx context.Context, req *account.UpdateRequest, rsp *account.UpdateResponse) error {
 	// validate incoming
 	if err := validateAccount(req.Account, "Update"); err != nil {
@@ -128,6 +132,7 @@ func (s *Account) Update(ctx context.Context, req *account.UpdateRequest, rsp *a
 	return nil
 }
 
+// Delete function handler
 func (s *Account) Delete(ctx context.Context, req *account.DeleteRequest, rsp *account.DeleteResponse) error {
 	if len(req.Id) == 0 {
 		return errors.BadRequest("go.micro.srv.auth.Delete", "invalid id")
@@ -139,6 +144,7 @@ func (s *Account) Delete(ctx context.Context, req *account.DeleteRequest, rsp *a
 	return nil
 }
 
+// Search function handler
 func (s *Account) Search(ctx context.Context, req *account.SearchRequest, rsp *account.SearchResponse) error {
 	if req.Limit <= 0 {
 		req.Limit = 10

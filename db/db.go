@@ -10,12 +10,14 @@ import (
 	oauth2 "github.com/cipta-ageung/auth-srv/proto/oauth2"
 )
 
+// DB interface
 type DB interface {
 	Init() error
 	Account
 	Oauth2
 }
 
+// Account interface db
 type Account interface {
 	Read(id string) (*account.Record, error)
 	Delete(id string) error
@@ -25,6 +27,7 @@ type Account interface {
 	SaltAndSecret(id string) (string, string, error)
 }
 
+// Oauth2 interfae db
 type Oauth2 interface {
 	ReadRequest(id string) (*oauth2.AuthorizeRequest, error)
 	CreateRequest(id string, req *oauth2.AuthorizeRequest) error
@@ -60,14 +63,15 @@ func random(i int) string {
 		}
 		return string(bytes)
 	}
-	return "ughwhy?!!!"
+	return "M3t4l?!!!"
 }
 
+// Token function
 func Token() string {
 	return base64.StdEncoding.EncodeToString([]byte(random(64)))
 }
 
-// Request Code
+// Code Request
 func Code() string {
 	return random(32)
 }

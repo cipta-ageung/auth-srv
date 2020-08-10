@@ -134,3 +134,8 @@ micro call go.micro.srv.auth Oauth2.Token '{"client_id": "cipta-ageung", "client
 micro call go.micro.srv.auth Oauth2.Revoke '{"access_token": "V2swWmtsRm50WEtKSDhXSEtFdVlCNUo1WG5iTk9BYjh1dUVnT0JlOW9DS2FjWFg3c1FCaHBDbWFpaUhtQVUxUw=="}'
 ```
 
+### generate proto file
+
+`cd proto/oauth2`
+
+`protoc --micro_out=. --go_out=. *.proto`
