@@ -8,8 +8,10 @@ require (
 	github.com/micro/cli/v2 v2.1.2
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-micro/v2 v2.9.1
+	github.com/micro/micro/v2 v2.9.3 // indirect
 	github.com/pborman/uuid v1.2.0
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
 	golang.org/x/net v0.0.0-20200707034311-ab3426394381
-	google.golang.org/protobuf v1.25.0
+	google.golang.org/protobuf v1.23.0
+	google.golang.org/grpc v1.26.0 // indirect
 )

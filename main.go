@@ -16,17 +16,20 @@ func main() {
 	service := micro.NewService(
 		micro.Name("go.micro.srv.auth"),
 		micro.Flags(
-			cli.StringFlag{
+			&cli.StringFlag{
 				Name:   "database_url",
-				EnvVar: "DATABASE_URL",
+				//EnvVar: "DATABASE_URL",
+				Value: "root@tcp(127.0.0.1:3306)/auth",
 				Usage:  "The database URL e.g root@tcp(127.0.0.1:3306)/auth",
 			},
 		),
 
-		micro.Action(func(c *cli.Context) {
+		micro.Action(func(c *cli.Context) error {
 			if len(c.String("database_url")) > 0 {
 				mysql.Url = c.String("database_url")
 			}
+
+			return nil
 		}),
 	)
 
